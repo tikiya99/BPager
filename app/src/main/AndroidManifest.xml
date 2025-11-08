@@ -2,6 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Queries for package visibility -->
+    <queries>
+        <!-- Allow app visibility for these packages -->
+        <package android:name="com.google.android.apps.maps" />
+        <package android:name="com.facebook.orca" /> <!-- Messenger -->
+        <package android:name="com.whatsapp" />
+        <package android:name="org.telegram.messenger" />
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
     <!-- Core permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -9,7 +22,9 @@
     <!-- Bluetooth (Android 12+) -->
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" tools:ignore="BluetoothPermission" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADVERTISE"
+        tools:ignore="BluetoothPermission" />
 
     <!-- Location required for BLE discovery on Android 11 and below -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -23,7 +38,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LumaNotifier">
+        
+        <service
+            android:name=".BluetoothService"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice|dataSync" />
 
+        <!-- Main screen -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -33,16 +54,32 @@
             </intent-filter>
         </activity>
 
+        <!-- App selection screen -->
+        <activity
+            android:name=".AppSelectionActivity"
+            android:exported="false"
+            android:label="Select Apps" />
+
+        <!-- Notification listener -->
         <service
             android:name=".NotificationForwarderService"
             android:label="Luma Notification Forwarder"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-            android:exported="true">
+            android:exported="true"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.service.notification.default_filter_types"
+                android:value="conversations|alerting" />
+
+            <meta-data
+                android:name="android.service.notification.disabled_filter_types"
+                android:value="ongoing|silent" />
         </service>
 
-    </application>
 
+    </application>
 </manifest>
