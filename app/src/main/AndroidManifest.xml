@@ -41,7 +41,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LumaNotifier">
+        android:theme="@style/Theme.BPager">
 
         <!-- Bluetooth service -->
         <service
@@ -53,7 +53,7 @@
         <!-- Notification forwarder service -->
         <service
             android:name=".NotificationForwarderService"
-            android:label="Luma Notification Forwarder"
+            android:label="BPager Notification Forwarder"
             android:exported="true"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>

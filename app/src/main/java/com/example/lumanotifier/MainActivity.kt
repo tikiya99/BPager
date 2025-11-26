@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.topAppBar.setNavigationOnClickListener {
-            Toast.makeText(this, "Connected to Luma", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Connected to BPager", Toast.LENGTH_SHORT).show()
         }
 
         val deviceSpinner = binding.deviceSpinner
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         if (flat == null || !flat.contains(cn.flattenToString())) {
             AlertDialog.Builder(this)
                 .setTitle("Notification Access")
-                .setMessage("Please enable notification access for Luma Notifier to forward app notifications.")
+                .setMessage("Please enable notification access for BPager to forward app notifications.")
                 .setPositiveButton("Grant Access") { _, _ ->
                     startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
                 }
@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
                 try {
                     BluetoothLink.send?.invoke(msg)
                     logView.append("Sent: $msg\n")
-                    inputField.text.clear()
+                    inputField.text?.clear()
                 } catch (e: Exception) {
                     logView.append("Send failed: ${e.message}\n")
                 }
