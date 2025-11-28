@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.lumanotifier"
-    compileSdk = 36  // ❌ Removed incorrect 'version = release(36)'
+    compileSdk = 36  //  Removed incorrect 'version = release(36)'
 
     defaultConfig {
         applicationId = "com.example.lumanotifier"
@@ -17,7 +17,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    // ✅ Correct syntax for viewBinding in Kotlin DSL
+    //  Correct syntax for viewBinding in Kotlin DSL
     buildFeatures {
         viewBinding = true
     }

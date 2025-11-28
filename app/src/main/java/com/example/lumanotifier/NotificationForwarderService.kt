@@ -37,6 +37,14 @@ class NotificationForwarderService : NotificationListenerService() {
             val allowed = prefs.getStringSet("allowed_apps", emptySet()) ?: emptySet()
             if (allowed.isNotEmpty() && !allowed.contains(pkg)) return
 
+            // Get readable app name instead of package name
+            val pm = packageManager
+            val appName = try {
+                pm.getApplicationLabel(pm.getApplicationInfo(pkg, 0)).toString()
+            } catch (e: Exception) {
+                pkg // fallback to package name if we can't get app name
+            }
+
             // Extract notification content
             val extras = sbn.notification.extras
             val title = extras.getString("android.title") ?: "(no title)"
@@ -49,8 +57,8 @@ class NotificationForwarderService : NotificationListenerService() {
                 else -> "(no text)"
             }
 
-            // Format and send
-            val msg = "[$pkg]\n$title\n$fullText"
+            // Format: AppName | Title | Text
+            val msg = "$appName | $title | $fullText"
             Log.d(tag, "Forwarding: $msg")
 
             BluetoothLink.send?.invoke(msg)

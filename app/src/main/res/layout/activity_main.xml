@@ -68,14 +68,35 @@
                         android:minHeight="48dp"
                         android:layout_marginBottom="12dp" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/connectButton"
-                        android:text="Connect"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:icon="@android:drawable/ic_menu_share"
-                        app:iconGravity="start"
-                        style="@style/Widget.Material3.Button.TonalButton" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:weightSum="2">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/scanButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:text="Scan"
+                            app:icon="@android:drawable/ic_menu_search"
+                            app:iconGravity="start"
+                            style="@style/Widget.Material3.Button.OutlinedButton" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/connectButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Connect"
+                            app:icon="@android:drawable/ic_menu_share"
+                            app:iconGravity="start"
+                            style="@style/Widget.Material3.Button.TonalButton" />
+
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -182,6 +203,7 @@
                         android:layout_marginBottom="12dp" />
 
                     <ScrollView
+                        android:id="@+id/logScrollView"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:background="?attr/colorSurfaceVariant"
